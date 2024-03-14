@@ -8,7 +8,7 @@ import { NavigationComponent} from "./navigation/navigation.component";
 
 const routes: Routes = [
   {path: 'layout', component: LayoutComponent},
-  {path: 'footer', component: FooterComponent}
+  {path: 'footer', component: FooterComponent},
   {path: 'navigation', component: NavigationComponent}
 ];
 
