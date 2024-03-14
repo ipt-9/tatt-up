@@ -6,6 +6,7 @@ import { NavigationComponent} from "./navigation/navigation.component";
 import { SearchBarComponent} from "./search-bar/search-bar.component";
 
 
+
 const routes: Routes = [
   {path: 'layout', component: LayoutComponent},
   {path: 'footer', component: FooterComponent},
