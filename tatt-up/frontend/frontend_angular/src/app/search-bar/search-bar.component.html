@@ -1,0 +1,15 @@
+<div class="search-container">
+  <label for="search-input" class="search-label">EXPLORE</label>
+  <div class="search-bar">
+    <input id="search-input" type="text" placeholder="Explore" #searchInput>
+    <button class="search-button" (click)="search(searchInput.value)">
+      <!-- add an icon here -->
+    </button>
+  </div>
+</div>
+
+<div *ngFor="let result of searchResults">
+  <!-- Display search results here -->
+  <!-- Replace 'property' with actual properties from your result objects -->
+  <p>{{ result.property }}</p>
+</div>
