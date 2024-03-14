@@ -20,13 +20,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        //User::factory()
-           // ->count(20)
-           // ->create();
+        User::factory()
+            ->count(20)
+            ->create();
 
        Post::factory()
             ->count(20)
-            ->has(User::factory()->count(20))
+            ->for(User::factory())
             ->create();
 
     }

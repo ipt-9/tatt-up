@@ -18,10 +18,10 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' =>fake(),
-            'likes'=>fake()->numberBetween(0, 10000),
-            'caption'=>fake()->words,
-            'file_path'=>fake()->filePath(),
+            'user_id' =>$this->faker->numberBetween(1,20),
+            'likes'=>$this->faker->numberBetween(0, 10000),
+            'caption'=>$this->faker->words(10, true),
+            'file_path'=>$this->faker->filePath(),
         ];
     }
 }
