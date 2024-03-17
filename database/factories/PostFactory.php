@@ -3,8 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Ramsey\Uuid\Type\Integer;
-
+use App\Models\User;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Post>
  */
@@ -18,10 +17,11 @@ class PostFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' =>$this->faker->numberBetween(1,20),
-            'likes'=>$this->faker->numberBetween(0, 10000),
-            'caption'=>$this->faker->words(10, true),
-            'file_path'=>$this->faker->filePath(),
+            'user_id' => User::factory(),
+            'likes'=> random_int(0, 20000),
+            'caption' => fake()->words(10, true),
+            'file_path' => fake()->filePath(),
+            'created_at'=> fake()->dateTimeBetween('-1 month', 'now')->format('Y-m-d H:i:s'),
         ];
     }
 }
