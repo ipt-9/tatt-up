@@ -27,6 +27,7 @@ class UserController extends Controller
         $user->save();
 
         return UserResource::make($user);
+        //return response()->json(['message' => 'User created successfully'], 201);
     }
 
 }
