@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         $validatedData = $request->validate([
             'username' => 'required|string|max:255|unique:users',
-            'email' => 'required|email|unique:users|max:users',
+            'email' => 'required|email|unique:users',
             'password' => 'required|string|min:8',
             'role' => 'required|in:user,tattooer,designer',
         ]);
@@ -26,8 +26,8 @@ class UserController extends Controller
 
         $user->save();
 
-        return UserResource::make($user);
-        //return response()->json(['message' => 'User created successfully'], 201);
+        //return UserResource::make($user);
+        return response()->json(['message' => 'User created successfully'], 201);
     }
 
 }
