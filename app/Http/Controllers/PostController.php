@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -17,5 +18,12 @@ class PostController extends Controller
         $post->save();
 
         return redirect()->route('posts.index');
+    }
+
+    public function search(Request $request){
+        $searchTerm = $request->input('query');
+        $posts = Post::where('caption', 'like', '%' . $searchTerm . '%')->get();
+
+        return PostResource::collection($posts);
     }
 }
