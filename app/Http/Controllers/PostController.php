@@ -10,14 +10,26 @@ class PostController extends Controller
 {
 
     public function store(Request $request){
+
+        $request->validate([
+            'file' => 'required|file|max:10240',
+            'likes' => 'required',
+            'caption' => 'required',
+        ]);
+        $file = $request->file('file');
+        $filePath = $file->store('posts');
+
         $post = new Post();
         $post->user_id = auth()->id();
         $post->likes = $request->likes;
         $post->caption = $request->caption;
-        $post->file_path = $request->file_path;
+        $post->file_path = $filePath;
         $post->save();
 
-        return redirect()->route('posts.index');
+        return response()->json([
+            'message' => 'Post created successfully',
+            'post' => new PostResource($post),
+        ], 201);
     }
 
     public function search(Request $request){

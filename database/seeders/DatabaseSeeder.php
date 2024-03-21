@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         // ]);
         User::factory()
             ->count(20)
+            ->has(Post::factory()->count(10))
             ->create();
 
        Post::factory()
