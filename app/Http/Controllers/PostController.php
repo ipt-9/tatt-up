@@ -13,7 +13,6 @@ class PostController extends Controller
 
         $request->validate([
             'file' => 'required|file|max:10240',
-            'likes' => 'required',
             'caption' => 'required',
         ]);
         $file = $request->file('file');
@@ -21,7 +20,6 @@ class PostController extends Controller
 
         $post = new Post();
         $post->user_id = auth()->id();
-        $post->likes = $request->likes;
         $post->caption = $request->caption;
         $post->file_path = $filePath;
         $post->save();
