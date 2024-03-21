@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,3 +27,7 @@ Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:sanctu
 Route::get('auth', [AuthController::class, 'checkAuth'])->middleware('auth:sanctum');
 
 Route::post('login', [AuthController::class, 'login']);
+
+Route::get('/posts/search', [PostController::class, 'search']);
+
+Route::post('posts/store', [PostController::class, 'store']);
