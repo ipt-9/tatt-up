@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,5 +30,7 @@ Route::middleware('auth')->group(function () {
 });
 Route::get('/users/create', 'UserController@create');
 Route::post('/users', 'UserController@store');
+
+Route::get('/search', [PostController::class, 'search']);
 
 require __DIR__.'/auth.php';
