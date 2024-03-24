@@ -9,7 +9,7 @@ use function Laravel\Prompts\password;
 
 class UserController extends Controller
 {
-    public function store(Request $request)
+    public function register(Request $request)
     {
         $validatedData = $request->validate([
             'username' => 'required|string|max:255|unique:users',
@@ -23,17 +23,14 @@ class UserController extends Controller
         $user->email = $validatedData['email'];
         $user->password = bcrypt($validatedData['password']);
         $user->role = $validatedData['role'];
-
         $user->save();
 
         //return UserResource::make($user);
-        return response()->json(['message' => 'User created successfully'], 201);
+        return redirect('/login')->with('success', 'User registered successfully!');
     }
 
-    public function create()
-    {
 
-        return view('users.create');
-    }
+
+
 
 }
