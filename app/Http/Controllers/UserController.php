@@ -30,4 +30,9 @@ class UserController extends Controller
         return response()->json(['message' => 'User created successfully'], 201);
     }
 
+    public function create()
+    {
+        return view('users.create');
+    }
+
 }
