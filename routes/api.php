@@ -31,3 +31,7 @@ Route::post('login', [AuthController::class, 'login']);
 Route::get('/posts/search', [PostController::class, 'search']);
 
 Route::post('posts/store', [PostController::class, 'store']);
+
+Route::get('checkUsernameExists/{username}', [UserController::class, 'checkUsernameExists']);
+
+Route::get('/checkEmailExists/{email}', [UserController::class, 'checkEmailExists']);

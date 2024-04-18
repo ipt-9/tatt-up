@@ -30,7 +30,17 @@ class UserController extends Controller
         //return redirect('/login')->with('success', 'User registered successfully!');
     }
 
+    public function checkUsernameExists($username)
+    {
+        $exists = User::where('username', $username)->exists();
+        return response()->json($exists);
+    }
 
+    public function checkEmailExists($email)
+    {
+        $exists = User::where('email', $email)->exists();
+        return response()->json($exists);
+    }
 
 
 
