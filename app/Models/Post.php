@@ -15,6 +15,7 @@ class Post extends Model
        'likes',
         'caption',
         'file_path',
+        'image_data',
 
     ];
 

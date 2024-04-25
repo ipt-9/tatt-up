@@ -26,10 +26,7 @@ class UserController extends Controller
         $user->role = $validatedData['role'];
         $user->save();
 
-        //return UserResource::make($user);
         return response()->json(['message' => 'User created successfully'], 201);
-        //return redirect('/login')->with('success', 'User registered successfully!');
-
 
     }
 

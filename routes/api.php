@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -35,3 +36,5 @@ Route::post('posts/store', [PostController::class, 'store']);
 Route::get('checkUsernameExists/{username}', [UserController::class, 'checkUsernameExists']);
 
 Route::get('/checkEmailExists/{email}', [UserController::class, 'checkEmailExists']);
+
+Route::post('imageUpload', [ImageController::class, 'imageUpload']);
