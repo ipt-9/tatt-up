@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use function Laravel\Prompts\password;
 
 class UserController extends Controller
 {
-    public function store(Request $request)
+    public function register(Request $request)
     {
         $validatedData = $request->validate([
             'username' => 'required|string|max:255|unique:users',
@@ -23,11 +24,24 @@ class UserController extends Controller
         $user->email = $validatedData['email'];
         $user->password = bcrypt($validatedData['password']);
         $user->role = $validatedData['role'];
-
         $user->save();
 
-        //return UserResource::make($user);
         return response()->json(['message' => 'User created successfully'], 201);
+
     }
+
+    public function checkUsernameExists($username)
+    {
+        $exists = User::where('username', $username)->exists();
+        return response()->json($exists);
+    }
+
+    public function checkEmailExists($email)
+    {
+        $exists = User::where('email', $email)->exists();
+        return response()->json($exists);
+    }
+
+
 
 }
