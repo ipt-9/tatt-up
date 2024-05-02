@@ -29,7 +29,7 @@ Route::get('auth', [AuthController::class, 'checkAuth'])->middleware('auth:sanct
 
 Route::post('login', [AuthController::class, 'login']);
 
-Route::get('/posts/search', [PostController::class, 'search']);
+Route::get('posts/search', [PostController::class, 'search']);
 
 Route::post('posts/store', [PostController::class, 'store']);
 
