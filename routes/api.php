@@ -35,6 +35,6 @@ Route::post('posts/store', [PostController::class, 'store']);
 
 Route::get('checkUsernameExists/{username}', [UserController::class, 'checkUsernameExists']);
 
-Route::get('/checkEmailExists/{email}', [UserController::class, 'checkEmailExists']);
+Route::get('checkEmailExists/{email}', [UserController::class, 'checkEmailExists'])->middleware('throttle:10,1');
 
 Route::post('imageUpload', [ImageController::class, 'imageUpload']);
