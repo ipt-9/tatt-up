@@ -36,11 +36,14 @@ class UserController extends Controller
         return response()->json($exists);
     }
 
-    public function checkEmailExists($email)
+    public function checkEmailExists(Request $request)
     {
+        $request->validate(['email' => 'required|email']);
+        $email = $request->email;
         $exists = User::where('email', $email)->exists();
-        return response()->json($exists);
+        return response()->json(['exists' => $exists]);
     }
+
 
 
 
