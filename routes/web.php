@@ -31,10 +31,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+Route::get('posts/search', [PostController::class, 'search']);
 Route::post('/register', [UserController::class, 'register'])->name('register');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 
 Route::get('/search', [PostController::class, 'search']);
+
 
 require __DIR__.'/auth.php';
