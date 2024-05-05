@@ -47,4 +47,9 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany(Post::class);
     }
+
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_user');
+    }
 }

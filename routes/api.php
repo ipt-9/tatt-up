@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -38,3 +39,7 @@ Route::get('checkUsernameExists/{username}', [UserController::class, 'checkUsern
 Route::get('checkEmailExists', [UserController::class, 'checkEmailExists'])->middleware('throttle:10,1');
 
 Route::post('imageUpload', [ImageController::class, 'imageUpload']);
+
+Route::get('events', [EventController::class, 'index']);
+
+Route::post('events', [EventController::class, 'store']);
