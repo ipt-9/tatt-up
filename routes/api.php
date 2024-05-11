@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -40,12 +41,16 @@ Route::get('checkEmailExists', [UserController::class, 'checkEmailExists'])->mid
 
 Route::post('imageUpload', [ImageController::class, 'imageUpload']);
 
-Route::get('events', [EventController::class, 'index']);
-
-
-
 Route::get('users', [UserController::class, 'index']);
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/events', [EventController::class, 'store']);
 });
+
+Route::get('events', [EventController::class, 'index']);
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('messages/{user}', [MessageController::class, 'getMessages']);
+    Route::post('messages/send', [MessageController::class, 'sendMessages']);
+});
+
