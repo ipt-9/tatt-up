@@ -42,4 +42,6 @@ Route::post('imageUpload', [ImageController::class, 'imageUpload']);
 
 Route::get('events', [EventController::class, 'index']);
 
-Route::post('events', [EventController::class, 'store']);
+Route::post('events/store', [EventController::class, 'store']);
+
+Route::get('users', [UserController::class, 'index']);
