@@ -44,7 +44,11 @@ class UserController extends Controller
         return response()->json(['exists' => $exists]);
     }
 
-
+    public function index()
+    {
+        $users = User::all(['id', 'name']);
+        return response()->json($users);
+    }
 
 
 }
