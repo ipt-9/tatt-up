@@ -54,3 +54,4 @@ Route::middleware('auth:api')->group(function () {
     Route::post('messages/send', [MessageController::class, 'sendMessages']);
 });
 
+Route::post('messages', [MessageController::class, 'store']);

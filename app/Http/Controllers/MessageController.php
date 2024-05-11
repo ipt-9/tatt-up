@@ -31,4 +31,15 @@ class MessageController extends Controller
 
         return response()->json($message);
     }
+    public function store(Request $request)
+    {
+        $message = new Message();
+        $message->sender_id = auth()->id(); // or another method to get the authenticated user
+        $message->receiver_id = $request->receiver_id;
+        $message->message = $request->message;
+        $message->save();
+
+        return response()->json($message, 201);
+    }
+
 }
