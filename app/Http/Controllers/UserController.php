@@ -46,7 +46,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::all(['id', 'username']);
+        $users = User::all(['username']);
         return response()->json($users);
     }
 
