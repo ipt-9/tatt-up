@@ -42,6 +42,10 @@ Route::post('imageUpload', [ImageController::class, 'imageUpload']);
 
 Route::get('events', [EventController::class, 'index']);
 
-Route::post('events/store', [EventController::class, 'store']);
+
 
 Route::get('users', [UserController::class, 'index']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/events', [EventController::class, 'store']);
+});

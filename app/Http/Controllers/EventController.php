@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -15,21 +16,24 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        // Validate request
-        $validatedData = $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
             'time' => 'required|string',
             'date' => 'required|date',
-            'user_ids' => 'required|array',
-            'user_ids.*' => 'exists:users,id'
+            'usernames' => 'required|array',
+            'usernames.*' => 'required|string|exists:users,username'
         ]);
 
-        // Create a new event
-        $event = Event::create($validatedData);
+        $event = Event::create([
+            'title' => $validated['title'],
+            'time' => $validated['time'],
+            'date' => $validated['date'],
 
-        // Attach users to the event
-        $event->users()->attach($request->user_ids);
+        ]);
 
-        return response()->json($event->load('users'), 201);
+
+        $event->attachUsersByUsername($validated['usernames']);
+
+        return response()->json($event, 201);
     }
 }
