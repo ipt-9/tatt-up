@@ -9,13 +9,14 @@ class MessageController extends Controller
 {
     public function getMessages($receiver_id)
     {
-        $user = auth()->user();
-        $messages = Message::where(function ($query) use ($user, $receiver_id) {
-            $query->where('sender_id', $user->id);
-            $query->where('receiver_id', $receiver_id);
-        })->orWhere(function ($query) use ($user, $receiver_id) {
-            $query->where('sender_id', $receiver_id);
-            $query->where('receiver_id', $user->id);
+        $user_id = auth()->id();
+
+        $messages = Message::where(function ($query) use ($user_id, $receiver_id) {
+            $query->where('sender_id', $user_id)
+                ->where('receiver_id', $receiver_id);
+        })->orWhere(function ($query) use ($user_id, $receiver_id) {
+            $query->where('sender_id', $receiver_id)
+                ->where('receiver_id', $user_id);
         })->get();
 
         return response()->json($messages);
@@ -23,23 +24,19 @@ class MessageController extends Controller
 
     public function sendMessage(Request $request)
     {
+        $validated = $request->validate([
+            'receiver_id' => 'required|integer|exists:users,id',
+            'message' => 'required|string'
+        ]);
+
         $message = new Message();
         $message->sender_id = auth()->id();
-        $message->receiver_id = $request->receiver_id;
-        $message->message = $request->message;
-        $message->save();
-
-        return response()->json($message);
-    }
-    public function store(Request $request)
-    {
-        $message = new Message();
-        $message->sender_id = auth()->id(); // or another method to get the authenticated user
-        $message->receiver_id = $request->receiver_id;
-        $message->message = $request->message;
+        $message->receiver_id = $validated['receiver_id'];
+        $message->message = $validated['message'];
         $message->save();
 
         return response()->json($message, 201);
     }
+
 
 }

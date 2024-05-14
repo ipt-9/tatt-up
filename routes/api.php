@@ -49,9 +49,8 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('events', [EventController::class, 'index']);
 
-Route::middleware('auth:api')->group(function () {
-    Route::get('messages/{user}', [MessageController::class, 'getMessages']);
-    Route::post('messages/send', [MessageController::class, 'sendMessages']);
-});
 
-Route::post('messages', [MessageController::class, 'store']);
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/messages', [MessageController::class, 'getMessages']);
+    Route::post('/messages', [MessageController::class, 'sendMessage']);
+});
