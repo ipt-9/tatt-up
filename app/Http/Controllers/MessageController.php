@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -25,13 +26,14 @@ class MessageController extends Controller
     public function sendMessage(Request $request)
     {
         $validated = $request->validate([
-            'receiver_id' => 'required|integer|exists:users,id',
+            'receiver_username' => 'required|string|exists:users,username',
             'message' => 'required|string'
         ]);
+        $receiver = User::where('username', $validated['receiver_username'])->firstOrFail();
 
         $message = new Message();
         $message->sender_id = auth()->id();
-        $message->receiver_id = $validated['receiver_id'];
+        $message->receiver_id = $receiver->id;
         $message->message = $validated['message'];
         $message->save();
 
