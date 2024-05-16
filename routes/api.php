@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MessageController;
@@ -56,3 +57,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::middleware('auth:sanctum')->get('conversations', [MessageController::class, 'getConversations']);
+Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->middleware('auth:sanctum');
+Route::get('/posts/{post}/comments', [CommentController::class, 'getComments'])->middleware('auth:sanctum');
