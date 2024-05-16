@@ -8,15 +8,16 @@ use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
-    public function getMessages($receiver_id)
+    public function getMessages($receiver_username)
     {
         $user_id = auth()->id();
+        $receiver = User::where('username', $receiver_username)->firstOrFail();
 
-        $messages = Message::where(function ($query) use ($user_id, $receiver_id) {
+        $messages = Message::where(function ($query) use ($user_id, $receiver) {
             $query->where('sender_id', $user_id)
-                ->where('receiver_id', $receiver_id);
-        })->orWhere(function ($query) use ($user_id, $receiver_id) {
-            $query->where('sender_id', $receiver_id)
+                ->where('receiver_id', $receiver->id);
+        })->orWhere(function ($query) use ($user_id, $receiver) {
+            $query->where('sender_id', $receiver->id)
                 ->where('receiver_id', $user_id);
         })->get();
 
