@@ -14,14 +14,18 @@ class MessageController extends Controller
         $user_id = $user->id;
         $auth_user_id = auth()->id();
 
-        $messages = Message::where(function ($query) use ($auth_user_id, $user_id) {
+        $messages = Message::with(['sender', 'receiver'])
+        ->where(function ($query) use ($auth_user_id, $user_id) {
             $query->where('sender_id', $auth_user_id)->where('receiver_id', $user_id);
-        })->orWhere(function ($query) use ($auth_user_id, $user_id) {
-            $query->where('sender_id', $user_id)->where('receiver_id', $auth_user_id);
-        })->get();
+        })
+            ->orWhere(function ($query) use ($auth_user_id, $user_id) {
+                $query->where('sender_id', $user_id)->where('receiver_id', $auth_user_id);
+            })
+            ->get();
 
         return response()->json($messages);
     }
+
 
     public function sendMessage(Request $request)
     {
