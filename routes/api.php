@@ -54,3 +54,5 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/messages/{username}', [MessageController::class, 'getMessages']);
     Route::post('/messages', [MessageController::class, 'sendMessage']);
 });
+
+Route::middleware('auth:sanctum')->get('/conversations', [MessageController::class, 'getConversations']);

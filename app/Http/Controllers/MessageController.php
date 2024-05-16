@@ -44,5 +44,25 @@ class MessageController extends Controller
         return response()->json($message, 201);
     }
 
+    public function getConversations()
+    {
+        $userId = auth()->id();
+
+        $conversations = Message::select('sender_id', 'receiver_id', 'message', 'sent_at')
+            ->with(['sender:id,username', 'receiver:id,username'])
+            ->where('sender_id', $userId)
+            ->orWhere('receiver_id', $userId)
+            ->latest('sent_at')
+            ->get()
+            ->groupBy(function($msg) use ($userId) {
+                return $msg->sender_id == $userId ? $msg->receiver_id : $msg->sender_id;
+            })
+            ->map(function ($msgs) {
+                return $msgs->first();
+            });
+
+        return response()->json($conversations);
+    }
+
 
 }
