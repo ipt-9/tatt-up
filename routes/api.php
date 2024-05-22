@@ -40,7 +40,7 @@ Route::get('checkUsernameExists/{username}', [UserController::class, 'checkUsern
 
 Route::get('checkEmailExists', [UserController::class, 'checkEmailExists'])->middleware('throttle:10,1');
 
-Route::post('imageUpload', [ImageController::class, 'imageUpload']);
+
 
 Route::get('users', [UserController::class, 'index']);
 
